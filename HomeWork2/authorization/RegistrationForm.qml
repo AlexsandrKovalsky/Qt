@@ -67,6 +67,16 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: buttonUp.bottom
     }
+    
+    Text {
+        id: error
+        anchors.top: buttonUp.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 10
+        color: "red"
+        visible: false
+        font.pixelSize: 16
+    }
 
     Button{
         id: buttonUp
@@ -74,12 +84,18 @@ Item {
         anchors.top: nickName.bottom
         anchors.topMargin: 10
         text:"Sign up"
-        enabled: loginUp.text.length<6||
-                 passwordUp.text.length<6||
-                 nickName.text.length<6||
-                 passwordUp.text!=repeatPassword.text? false:true
+        enabled: loginUp.text.length >5 &&
+                 passwordUp.text.length>5&&
+                 repeatPassword.text.length>5&&
+                 nickName.text.length>5
         onClicked: {
-            indicator.running=true
+            error.visible=false
+            if(passwordUp.text!=repeatPassword.text){
+                error.text= "Password values aren't same!"
+                error.visible= true
+            } else{
+                indicator.running=true
+            }
         }
     }
 }
