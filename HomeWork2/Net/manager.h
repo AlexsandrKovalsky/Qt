@@ -17,7 +17,9 @@ public:
     void registration(const QString &login,
                       const QString &password);
 
-signals:
+private slots:
+    void onRegisterFinished(QString &error);
+    void onAuthFinished(QString &error, QString &token);
 
 private:
     QNetworkAccessManager _net;
