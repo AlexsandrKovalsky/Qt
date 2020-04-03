@@ -27,19 +27,17 @@ void Manager::authorization(const QString &login, const QString &password)
     QNetworkReply *reply= _net.post(request, bodyData);
 
     connect(reply, &QNetworkReply::finished,[this,reply]()
-    {
+    {    
+        QString error;
         if(reply->error()!= QNetworkReply::NoError)
         {
-            qDebug() <<"Error:" << reply->errorString();
+            error= reply->errorString();
         }
-        else{
-            QJsonObject obj= QJsonDocument::fromJson(reply->readAll()).object();
-            QString token=obj.value("token").toString();
-            qDebug() <<token;
-        }
+        QJsonObject obj= QJsonDocument::fromJson(reply->readAll()).object();
+        QString token=obj.value("token").toString();
+        emit onAuthFinished(error,token);
         reply->deleteLater();
-     });
-
+    });
 }
 
 void Manager::registration(const QString &login, const QString &password)
@@ -59,14 +57,23 @@ void Manager::registration(const QString &login, const QString &password)
 
     connect(reply, &QNetworkReply::finished,[this,reply]()
     {
+        QString error;
         if(reply->error()!= QNetworkReply::NoError)
         {
-            qDebug() <<"Error:" << reply->errorString();
+            error= reply->errorString();
         }
-        else{
-            qDebug() <<"ok";
-        }
+        emit onRegisterFinished(error);
         reply->deleteLater();
-     });
+    });
 }
 
+void Manager::onRegisterFinished(QString &error)
+{
+    qDebug() <<error;
+}
+
+void Manager::onAuthFinished(QString &error, QString &token)
+{
+    qDebug() <<error;
+    qDebug() <<token;
+}
