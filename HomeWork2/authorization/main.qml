@@ -10,46 +10,43 @@ Window {
     title: "Home work"
     flags: Qt.Dialog
     property string activeWindow: "signIn"
-
+    property var forms: {"signIn":"qrc:/qml/LoginForm.qml",
+                           "signUp": "qrc:/qml/RegistrationForm.qml"}
     Loader{
         id:loader
         anchors.fill: parent
-        anchors.bottomMargin: 40
-        source: (activeWindow=="signIn")
-                ? "qrc:/qml/LoginForm.qml"
-                : "qrc:/qml/RegistrationForm.qml"
+        anchors.bottomMargin: 70
+        source: forms[activeWindow];
     }
 
-    Text {
-        id: slash
-        text: "/"
-        anchors.horizontalCenter: parent.horizontalCenter
+    Row{
+        spacing: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
-        font.pixelSize: 20
-    }
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin: 10
 
-    ClickText{
-        id: clickIn
-        text: "Sign in"
-        anchors.right: slash.left
-        anchors.bottom: slash.bottom
-        anchors.rightMargin: 10
-        font.underline: activeWindow=="signIn"
-        onClicked: {
-            activeWindow="signIn"
+        ClickText{
+            id: clickIn
+            text: "Sign in"
+            font.underline: activeWindow=="signIn"
+            onClicked: {
+                activeWindow="signIn"
+            }
+         }
+
+        Text {
+            id: slash
+            text: "/"
+            font.pixelSize: 20
         }
-     }
 
-    ClickText{
-        id: clickUp
-        text: "Sign up"
-        anchors.left: slash.right
-        anchors.bottom: slash.bottom
-        anchors.leftMargin: 10
-        font.underline: activeWindow=="signUp"
-        onClicked: {
-            activeWindow="signUp"
+        ClickText{
+            id: clickUp
+            text: "Sign up"
+            font.underline: activeWindow=="signUp"
+            onClicked: {
+                activeWindow="signUp"
+            }
         }
     }
 }
