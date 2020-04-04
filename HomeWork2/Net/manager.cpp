@@ -67,13 +67,3 @@ void Manager::registration(const QString &login, const QString &password)
     });
 }
 
-void Manager::onRegisterFinished(QString &error)
-{
-    qDebug() <<error;
-}
-
-void Manager::onAuthFinished(QString &error, QString &token)
-{
-    qDebug() <<error;
-    qDebug() <<token;
-}
