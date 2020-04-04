@@ -3,7 +3,6 @@ import QtQuick.Window 2.13
 import QtQuick.Controls 2.13
 
 Item {
-    id: loginForm
     width: parent.width
     height: parent.height
 
