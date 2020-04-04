@@ -17,7 +17,7 @@ public:
     void registration(const QString &login,
                       const QString &password);
 
-private slots:
+signals:
     void onRegisterFinished(QString &error);
     void onAuthFinished(QString &error, QString &token);
 
