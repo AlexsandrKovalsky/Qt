@@ -40,8 +40,7 @@ Item {
             id:buttonIn
             anchors.horizontalCenter: parent.horizontalCenter
             text:"Sign in"
-            enabled: loginIn.text.length<6||
-                     passwordIn.text.length<6 ? false:true
+            enabled: login.text.length >=5 && password.text.length>=5
             onClicked: {
                 indicator.running=true
             }
