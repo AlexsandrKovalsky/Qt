@@ -82,8 +82,3 @@ void Manager::setProcessing(bool value)
     m_processing=value;
     emit processingChanged(value);
 }
-
-
-
-
-
